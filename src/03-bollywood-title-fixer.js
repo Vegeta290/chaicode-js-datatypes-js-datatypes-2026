@@ -29,6 +29,23 @@
  *   fixBollywoodTitle("dil ka kya kare")
  *   // => "Dil ka Kya Kare"
  */
-export function fixBollywoodTitle(title) {
-  // Your code here
-}
+  export function fixBollywoodTitle(title) {
+    // Your code here
+    if(typeof title!=="string"|| title.trim()==="") return "";
+    const exceptions = ["ka", "ki", "ke", "se", "aur", "ya", "the", "of", "in", "a", "an"];
+    const formatted = title.trim().toLowerCase();
+    const words = formatted.split(" ");
+    const valid = words.filter((w)=>w.trim()!=="")
+    const result = valid.map((word,index)=> {
+      if(exceptions.includes(word.toLowerCase()) && index!==0 ){
+        return word;
+      }
+      else{
+        const first = word.charAt(0).toUpperCase();
+        const last = word.slice(1,word.length);
+        return first+last;
+      }
+    });
+    return result.join(" ");
+
+  }
